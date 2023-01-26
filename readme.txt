@@ -1,4 +1,4 @@
-=== WordPress SVG Enabler ===
+=== SVG Enabler ===
 Contributors: fatih-toprak, optimisthub
 Tags: svg upload, allow svg upload, svg support, svg upload enabler
 Requires at least: 5.0
@@ -16,22 +16,22 @@ This plugin gives you the ability to allow SVG uploads whilst making sure that t
  
 == Installation ==
 
-### INSTALL "WordPress SVG Enabler" FROM WITHIN WORDPRESS
+### INSTALL "SVG Enabler" FROM WITHIN WORDPRESS
 
 1. Visit the plugins page within your dashboard and select ‘Add New’;
-1. Search for ‘WordPress SVG Enabler’;
-1. Activate WordPress SVG Enabler from your Plugins page;
+1. Search for ‘SVG Enabler’;
+1. Activate SVG Enabler from your Plugins page;
 1. Go to ‘after activation’ below.
 
-### INSTALL "WordPress SVG Enabler" MANUALLY
+### INSTALL "SVG Enabler" MANUALLY
 
-1. Upload the ‘wordpress-svg-enabler’ folder to the /wp-content/plugins/ directory;
-1. Activate the WordPress SVG Enabler through the ‘Plugins’ menu in WordPress;
+1. Upload the ‘svg-enabler’ folder to the /wp-content/plugins/ directory;
+1. Activate the SVG Enabler through the ‘Plugins’ menu in WordPress;
 1. Go to ‘after activation’ below.
  
 ### AFTER ACTIVATION
 
-1. WordPress SVG Enabler is a 'set and forget' plugin. There are no settings fields as your site's scheduled posts will be automatically checked when the plugin is installed and activated.
+1. SVG Enabler is a 'set and forget' plugin. There are no settings fields as your site's scheduled posts will be automatically checked when the plugin is installed and activated.
 1. You’re done!
 
 
