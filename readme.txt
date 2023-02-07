@@ -4,7 +4,7 @@ Tags: svg upload, allow svg upload, svg support, svg upload enabler
 Requires at least: 5.0
 Tested up to: 6.1.1
 Requires PHP: 7.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,10 @@ Yes, this can be done using the `svg_allowed_attributes` and `svg_allowed_tags` 
 `
 
 == Changelog == 
+
+= 1.0.1 =
+
+* Github Action
 
 = 1.0.0 =
 

@@ -6,7 +6,7 @@
  * Author:          @optimisthub
  * Author URI:      https://optimisthub.com
  * Text Domain:     svg-enabler
- * Version:         1.0.0
+ * Version:         1.0.1
  * Requires at least: 5.0
  * Tested up to: 6.1.1
  * Requires PHP: 7.1
