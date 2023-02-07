@@ -4,7 +4,7 @@
 * Minimum WordPress Sürümü : 5.0
 * Test Edilen WordPress Sürümü : 6.1.1
 * PHP : 7.1+
-* Stabil Versiyon : 1.0.2
+* Stabil Versiyon : 1.0.3
 * Lisans: GPLv2 ya da daha sonrası
 * Lisans URI: https://www.gnu.org/licenses/gpl-2.0.html
 

@@ -3,10 +3,10 @@
  * Plugin Name:     SVG Enabler
  * Plugin URI:      https://github.com/optimisthub/wordpress-svg-enabler
  * Description:     This plugin allow upload any SVG files to WordPress. 
- * Author:          @optimisthub
+ * Author:          optimisthub
  * Author URI:      https://optimisthub.com
  * Text Domain:     svg-enabler
- * Version:         1.0.2
+ * Version:         1.0.3
  * Requires at least: 5.0
  * Tested up to: 6.1.1
  * Requires PHP: 7.1
