@@ -57,9 +57,17 @@ Her yüklenen SVG dosyası, sitenize kaydedilmeden **önce** temizlenir. SVG bir
 
 ### Composer ile kurulum
 
+Bu paket Packagist'te yayınlanmadığı için önce VCS deposu olarak tanıtmanız gerekir:
+
 ```bash
+composer config repositories.optimisthub-svg-enabler vcs https://github.com/optimisthub/wordpress-svg-enabler
 composer require optimisthub/wordpress-svg-enabler
 ```
+
+Alternatif olarak, WordPress eklentilerini Composer ile yönetmek için
+[yarnpkg/wp-packages](https://github.com/yarnpkg/wp-packages) veya
+[roots/bedrock](https://roots.io/bedrock/) gibi araçların kullandığı
+`wpackagist` deposunu tercih edebilirsiniz.
 
 ## Sıkça Sorulan Sorular
 
