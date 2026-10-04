@@ -57,17 +57,64 @@ Her yüklenen SVG dosyası, sitenize kaydedilmeden **önce** temizlenir. SVG bir
 
 ### Composer ile kurulum
 
-Bu paket Packagist'te yayınlanmadığı için önce VCS deposu olarak tanıtmanız gerekir:
+Bu paket Packagist'te yayınlanmadığı için önce GitHub deposunu VCS deposu
+olarak tanıtmanız gerekir:
 
 ```bash
 composer config repositories.optimisthub-svg-enabler vcs https://github.com/optimisthub/wordpress-svg-enabler
 composer require optimisthub/wordpress-svg-enabler
 ```
 
-Alternatif olarak, WordPress eklentilerini Composer ile yönetmek için
-[yarnpkg/wp-packages](https://github.com/yarnpkg/wp-packages) veya
-[roots/bedrock](https://roots.io/bedrock/) gibi araçların kullandığı
-`wpackagist` deposunu tercih edebilirsiniz.
+### Bedrock ile kurulum
+
+[Bedrock](https://roots.io/bedrock/) kullanıyorsanız eklenti, `type`
+alanı `wordpress-plugin` olduğu için `composer/installers` tarafından
+doğru dizine yerleştirilir. Projenizin `composer.json` dosyasına şunları
+ekleyin:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/optimisthub/wordpress-svg-enabler"
+        }
+    ],
+    "require": {
+        "optimisthub/wordpress-svg-enabler": "^2.0"
+    },
+    "extra": {
+        "installer-paths": {
+            "web/app/plugins/{$name}/": ["type:wordpress-plugin"]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}
+```
+
+Ardından:
+
+```bash
+composer update optimisthub/wordpress-svg-enabler
+```
+
+Eklenti `web/app/plugins/wordpress-svg-enabler/` dizinine, `svg-sanitize`
+bağımlılığıyla birlikte kurulur. Etkinleştirmek için:
+
+```bash
+wp plugin activate svg-enabler
+```
+
+> **Not:** `installer-paths` tanımı olmadan eklenti `vendor/` altına
+> kurulur ve WordPress onu görmez. `composer/installers` paketinin
+> kurulu ve izinli olduğundan emin olun.
+
+WordPress eklentilerini Composer ile yönetmenin alternatif bir yolu için
+[wpackagist.org](https://wpackagist.org/) deposuna bakabilirsiniz.
 
 ## Sıkça Sorulan Sorular
 
