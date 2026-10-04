@@ -1,17 +1,45 @@
 name: Deploy to WordPress.org
+
 on:
   release:
     types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
-  tag:
-    name: Deploy New Release to WordPress.org
+  deploy:
+    name: Deploy new release to WordPress.org
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: WordPress Plugin Deploy
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+
+      - name: Install production dependencies
+        run: composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+
+      - name: Verify PHP syntax
+        run: find . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Deploy to WordPress.org
         id: deploy
-        uses: 10up/action-wordpress-plugin-deploy@stable 
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          generate-zip: true
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SLUG: svg-enabler
+
+      - name: Attach zip to the GitHub release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.deploy.outputs.zip-path }}

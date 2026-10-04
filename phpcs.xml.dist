@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<ruleset name="SVG Enabler">
+    <description>WordPress Coding Standards for the SVG Enabler plugin.</description>
+
+    <file>index.php</file>
+    <file>src/</file>
+
+    <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/node_modules/*</exclude-pattern>
+
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+    <arg name="parallel" value="8"/>
+
+    <rule ref="WordPress">
+        <!-- PSR-4 file names (Plugin.php, Sanitizer.php) are intentional. -->
+        <exclude name="WordPress.Files.FileName"/>
+    </rule>
+
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="svg-enabler"/>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="prefixes" type="array">
+                <element value="svg_enabler"/>
+                <element value="optimisthub"/>
+                <element value="OptimistHub"/>
+                <element value="SVG_ENABLER"/>
+                <element value="plugin"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!--
+        Autoloader callback signature: the parameter is conventionally named
+        $class in every PSR-4 autoloader, including Composer's own.
+    -->
+    <rule ref="Universal.NamingConventions.NoReservedKeywordParameterNames.classFound">
+        <severity>0</severity>
+    </rule>
+
+    <!--
+        We deliberately sniff the first bytes of a local upload temp file with
+        fopen/fread/fclose and rewrite it with file_put_contents. WP_Filesystem
+        is inappropriate here: it is designed for the admin/upgrade context and
+        would require credentials or direct-access flags for a front-end upload.
+    -->
+    <rule ref="WordPress.WP.AlternativeFunctions.file_system_operations_fopen">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.WP.AlternativeFunctions.file_system_operations_fread">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.WP.AlternativeFunctions.file_system_operations_fclose">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.WP.AlternativeFunctions.file_system_operations_is_writable">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents">
+        <severity>0</severity>
+    </rule>
+
+    <!--
+        The regex comment in strip_remote_references() is documentation, not
+        commented-out code; the sniff cannot tell the difference.
+    -->
+    <rule ref="Squiz.PHP.CommentedOutCode.Found">
+        <severity>0</severity>
+    </rule>
+
+    <config name="minimum_supported_wp_version" value="6.0"/>
+    <config name="testVersion" value="7.4-"/>
+</ruleset>

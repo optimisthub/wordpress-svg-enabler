@@ -1,2 +1,21 @@
-*.lock
-composer.json
+# Production dependencies under vendor/ ARE committed, so the plugin works
+# when installed straight from this repository. Development tooling is not.
+/vendor/bin/
+/vendor/squizlabs/
+/vendor/wp-coding-standards/
+/vendor/phpcompatibility/
+/vendor/phpcsstandards/
+/vendor/dealerdirect/
+/composer.lock
+
+# Local tooling caches.
+/.composer-cache/
+/phpcs.xml
+/.phpunit.result.cache
+
+# Scratch server used by local testing only.
+/.tests/srv/
+
+# OS noise.
+.DS_Store
+Thumbs.db

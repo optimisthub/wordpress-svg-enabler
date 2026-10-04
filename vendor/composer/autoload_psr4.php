@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'enshrined\\svgSanitize\\' => array($vendorDir . '/enshrined/svg-sanitize/src'),
-    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
+    'OptimistHub\\SvgEnabler\\' => array($baseDir . '/src'),
 );

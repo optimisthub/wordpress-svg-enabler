@@ -1,18 +1,23 @@
-name: Plugin asset/readme update
+name: Plugin asset and readme update
+
 on:
   push:
     branches:
-    - master
+      - master
+  workflow_dispatch:
+
 jobs:
   trunk:
-    name: Updating assets/readme files.
+    name: Update assets and readme on WordPress.org
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: WordPress.org plugin asset/readme update
-      uses: 10up/action-wordpress-plugin-asset-update@stable
-      env:
-        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-        IGNORE_OTHER_FILES: true
-        SLUG: svg-enabler
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: WordPress.org plugin asset/readme update
+        uses: 10up/action-wordpress-plugin-asset-update@stable
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          IGNORE_OTHER_FILES: true
+          SLUG: svg-enabler

@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint and standards (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, libxml, mbstring
+          coverage: none
+
+      - name: PHP syntax check
+        run: |
+          find . -path ./vendor -prune -o -name '*.php' -print0 \
+            | xargs -0 -n1 php -l > /dev/null
+          echo "All PHP files pass syntax check."
+
+      - name: Install development dependencies
+        if: matrix.php == '8.1'
+        run: composer install --prefer-dist --no-interaction
+
+      - name: WordPress Coding Standards
+        if: matrix.php == '8.1'
+        run: vendor/bin/phpcs --standard=phpcs.xml.dist --report=summary
+
+  security:
+    name: Dependency security audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+
+      - name: Audit dependencies for known vulnerabilities
+        run: composer audit --no-dev
+
+      - name: Verify the sanitizer library is CVE-patched
+        run: |
+          composer install --no-dev --prefer-dist --no-interaction
+          php -r '
+            $installed = json_decode(file_get_contents("vendor/composer/installed.json"), true);
+            $packages = $installed["packages"] ?? $installed;
+            foreach ($packages as $package) {
+              if ("enshrined/svg-sanitize" === $package["name"]) {
+                $version = ltrim($package["version"], "v");
+                if (version_compare($version, "0.22.0", "<")) {
+                  fwrite(STDERR, "FAIL: svg-sanitize {$version} is affected by CVE-2025-55166. Need >= 0.22.0.\n");
+                  exit(1);
+                }
+                echo "OK: svg-sanitize {$version} is patched.\n";
+              }
+            }
+          '
+
+  sanitizer-tests:
+    name: SVG sanitizer security tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: dom, libxml, mbstring
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --no-dev --prefer-dist --no-interaction
+
+      - name: Run XSS and XXE payload tests
+        run: php .tests/security-test.php
+
+      - name: Run false-positive tests
+        run: php .tests/false-positive-test.php
