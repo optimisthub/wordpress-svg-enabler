@@ -1,4 +1,4 @@
-<img src="https://ps.w.org/svg-enabler/assets/banner-1544x500.png?rev=3729079" alt="SVG Enabler" style="float: left; width:100%; margin-bottom:30px" />
+<img src="https://ps.w.org/svg-enabler/assets/banner-1544x500.png?rev=1791214569" alt="SVG Enabler" style="float: left; width:100%; margin-bottom:30px" />
 
 # SVG Enabler
 
